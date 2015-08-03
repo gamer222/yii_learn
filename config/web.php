@@ -9,6 +9,9 @@ $config = [
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\AdminModule'
+        ],
+        'user' => [
+            'class' => 'app\modules\user\UserModule'
         ]
     ],
     'components' => [
