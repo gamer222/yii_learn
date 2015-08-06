@@ -4,36 +4,32 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
-use yii\data\Pagination;
+
 
 /*
 * include models classes
 */
 
-use app\models\Country;
+use app\models\UserForm;
 
 class SiteController extends Controller
 {
     public function actionIndex()
     {
 
-    	$query = Country::find();
-
-    	$pagination = new Pagination([
-    		'defaultPageSize' => 5,
-    		'totalCount' => $query->count()
-    	]);
-
-    	$countries = $query->orderBy('name')
-    		->offset($pagination->offset)
-    		->limit($pagination->limit)
-    		->all();
-
-        return $this->render('index',[
-        	'countries' => $countries,
-        	'pagination' => $pagination,
-        ]);
+        return $this->render('index');
     }
 
-    
+    public function actionUser()
+    {
+    	$model = new UserForm;
+
+    	
+    	if($model->load(Yii::$app->request->post()) && $model->validate())
+    	{
+    		Yii::$app->session->setFlash('success', 'You have entered the data correctly');
+    	}
+    	
+    	return $this->render('userForm',['model' => $model]);
+    }
 }
